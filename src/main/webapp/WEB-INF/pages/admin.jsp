@@ -16,13 +16,13 @@
 
 </head>
 <body>
-
 <div class="cart">
     <div class="container">
         <h2>Всі замовлення:</h2>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <tr>
+                    <th></th>
                     <th>ID:</th>
                     <th>ID товару</th>
                     <th>Покупець</th>
@@ -31,6 +31,7 @@
                 </tr>
                 <c:forEach items="${productsInReseipts}" var="productsInReseipt">
                 <tr>
+                    <td><input type="checkbox" name="toDelete[]" value="${productsInReseipt.id}" id="checkbox_${productsInReseipt.id}"/></td>
                     <td>${productsInReseipt.receipt_id}</td>
                     <td>${productsInReseipt.product_id}</td>
                     <td>${productsInReseipt.name}</td>
@@ -39,6 +40,11 @@
                 </tr>
                 </c:forEach>
             </table>
+        </div>
+        <div class="btn_form btn-to-cart">
+            <button type="button"
+                    id="delete-receipt"
+                    onclick="toDelete()">Видалити вибрані</button>
         </div>
     </div>
 </div>

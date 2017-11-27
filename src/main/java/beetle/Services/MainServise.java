@@ -31,6 +31,9 @@ public class MainServise {
     @Autowired
     private ProductsInReceiptsRepository productsInReceiptsRepository;
 
+    //Create List with products for cart
+    public List<Product> productsInCart = new ArrayList<>();
+
     // Block for saving objects to DB
     @Transactional
     public void addUser(User user) {
@@ -98,8 +101,14 @@ public class MainServise {
         return productsInReceiptsRepository.findByReceipt_id(id);
     }
 
-    //Create List with products for cart
-     List<Product> productsInCart = new ArrayList<>();
+    @Transactional
+    public void deleteReceipt(long[] idList) {
+        for (long id : idList)
+            productsInReceiptsRepository.delete(id);
+    }
+
+
+
 
     //Adding product to cart by User
     @Transactional
@@ -111,10 +120,4 @@ public class MainServise {
     public List<Product> productsToCart(){
         return productsInCart;
     }
-
-    public void delFromCart(Long id) {
-        productsInCart.remove(findProduct(id));
-    }
-
-
 }

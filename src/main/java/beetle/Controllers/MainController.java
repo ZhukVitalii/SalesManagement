@@ -111,4 +111,10 @@ public class MainController {
 
         return "cart";
     }
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public ResponseEntity<Void> deleteReceipt(@RequestParam(value = "toDelete[]", required = false) long[] toDelete) {
+        if (toDelete != null && toDelete.length > 0)
+            mainServise.deleteReceipt(toDelete);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

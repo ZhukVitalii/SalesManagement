@@ -1,12 +1,11 @@
 
 
-function addToCart(id){ // задаем функцию при нажатиии на элемент <button>
+function addToCart(id) {
         $.ajax({
-            method: "POST", // метод HTTP, используемый для запроса
-            url: "/addToCart/"+id, // строка, содержащая URL адрес, на который отправляется запрос
+            method: "POST",
+            url: "/addToCart/"+id,
             data: id,
         })
-        console.log(id);
     };
 
 
@@ -14,21 +13,12 @@ function goToCart(){
     window.location.href='/cart';
 };
 
-function delFromCart(id){
-    $.ajax({
-        method: "POST", // метод HTTP, используемый для запроса
-        url: "/delFromCart/"+id, // строка, содержащая URL адрес, на который отправляется запрос
-        data: id,
-    })
-    console.log(id);
-};
-
-function deleteFromCart(data) {
-    var URL = "/delFromCart/"+data ;
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", URL, true);
-    xhttp.send(data);
-    console.log(data);
-    window.location.reload();
+function toDelete() {
+        var data = {'toDelete[]': []};
+        $(":checked").each(function () {
+            data['toDelete[]'].push($(this).val());
+        });
+        $.post("/delete", data, function (data, status) {
+            window.location.reload();
+        });
 }
-
